@@ -6,15 +6,24 @@
 #include <QObject>
 #include "ui_BusRegister.h"
 #include <QCloseEvent>
+#include <QShowEvent>
 #include <vector>
+#include "Bus.h"
+#include <fstream>
 class BusRegister : public QMainWindow
 {
 	Q_OBJECT;
-	static int buscount;
 
 public:
+	
 	BusRegister(QWidget *parent = nullptr);
 	~BusRegister();
+	Bus *bus;
+	static std::vector<Bus> buslist;
+
+
+
+
 
 	//Registers the bus ID and the number of seats inside the bus
 	void Register(int id);
@@ -36,11 +45,12 @@ private slots:
 	void on_Submit_clicked();
 
 	void closeEvent(QCloseEvent* event);
+	void showEvent(QShowEvent* event);
 
 private:
 	Ui::BusRegisterClass ui;
-	int id;
-	std::vector<int> totalseats;
+	// to check for id
+
 };
 
 

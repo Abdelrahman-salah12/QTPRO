@@ -3,74 +3,83 @@
 #include <QCloseEvent>
 #include <iostream>
 #include <QDebug>
+#include <QShowEvent>
+#include "Bus.h"
+#include <fstream>
+#include <qmessagebox.h>
 
-int BusRegister::buscount;
+std::vector<Bus> BusRegister::buslist;
+
 
 BusRegister::BusRegister(QWidget *parent)
-	: QMainWindow(parent), id(-1)
+	: QMainWindow(parent), bus(nullptr)
 {
 	ui.setupUi(this);
-	buscount += 1;
-	//change after excel
-	QString text = ui.L_busid->text();
-	text += QString::number(buscount);
-	ui.L_busid->setText(text);
+	//change after excel, read the last bus then return + 1
 }
+
+
+void BusRegister::showEvent(QShowEvent* event) {
+	bus = new Bus();
+	bus->setID(0);
+	bus->setSeats(0);
+	ui.input_seats->setValue(0);
+}
+
 
 BusRegister::~BusRegister()
 {}
 
-// connect the signal/slot
 
-// when you clicked the button, emit the signal "sgnShow"
 void BusRegister::on_Return_clicked() {
-	//THIS iS RETURN BUTTON
-	//shows main window, closes sub window
 	this->hide();
 	emit sgnShow();
 }
 
 void BusRegister::on_Submit_clicked() {
 	//Submit button
-	int max = ui.input_seats->value();
-	
-	if (max >= 20 && max <= 40) {
-		initialize_seats(max);
-		sgnShow();
-		this->close();
+	//
+	bus->setSeats(ui.input_seats->value());
+	if (bus->getSeats() < 20 || bus->getSeats() > 40) {
 		return;
 	}
+	bus->setID(ui.busID->value());
+
+	for (int i = 0; i < buslist.size(); i++) {
+		if (bus->getID() == buslist[i].getID())
+		{
+			QMessageBox::information(this, tr("Error XD"), tr("There is a bus with this ID pick another one"));
+			return;
+		}
+	}
+	initialize_seats(bus->getSeats());
+	buslist.push_back(*bus);
+	// waheed, hta5od kol values ely hna w t7otha fy table Trip fy excel w t7ot kol el byanat bdl el txt file
+	std::ofstream myfile;
+	myfile.open("Bus.csv", std::ios::app);
+	myfile << bus->getID() << ',';
+	myfile << bus->getSeats() << ',' << std::endl;
+	myfile.flush();
+	myfile.close();
+	sgnShow();
+	this->close();
+	return;
+	
 	//more
 }
+
+
 
 void BusRegister::closeEvent(QCloseEvent* event)
 {
 	emit sgnShow();
 	event->accept();
-	delete m_bus;
 }
 
 
 void BusRegister::initialize_seats(int size) {
 	for (int i = 0; i < size; i++) {
-		totalseats.push_back(0);
+		bus->totalseats.push_back(0);
 	}
 }
 
-void BusRegister::setID(int id) {
-	this->id = id;
-}
-
-//Initialize numof seats and declare them to 0, 0 = still available for booking.
-void BusRegister::setSeats(int index) {
-	totalseats[index] = 1;
-	//cout << seats.size();
-}
-
-int BusRegister::getID() {
-	return this->id;
-}
-//returns a specific seat in seats[]
-std::vector<int> BusRegister::getSeats() {
-	return this->totalseats;
-}

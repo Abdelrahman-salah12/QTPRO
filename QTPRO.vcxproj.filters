@@ -43,9 +43,27 @@
     <ClCompile Include="start.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TripRegister.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Bus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Trip.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShowTrips.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="BusRegister.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="TripRegister.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ShowTrips.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -53,5 +71,19 @@
     <QtMoc Include="BusRegister.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="TripRegister.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ShowTrips.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Bus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Trip.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
