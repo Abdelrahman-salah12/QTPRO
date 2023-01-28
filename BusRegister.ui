@@ -39,7 +39,7 @@
      <string>Return</string>
     </property>
    </widget>
-   <widget class="QLabel" name="L_busid">
+   <widget class="QLabel" name="labID">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -58,7 +58,7 @@
      <string notr="true">color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
-     <string>Bus ID is automatically assigned to: </string>
+     <string>Bus ID</string>
     </property>
    </widget>
    <widget class="QLabel" name="L_seats">
@@ -80,13 +80,13 @@
      <string notr="true">color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
-     <string>Please enter number of seats for this bus [max 40]: </string>
+     <string>Number of seats [20] min, [40] max: </string>
     </property>
    </widget>
    <widget class="QSpinBox" name="input_seats">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>330</x>
       <y>160</y>
       <width>61</width>
       <height>41</height>
@@ -142,6 +142,19 @@ color: rgb(255, 207, 61);</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="busID">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>110</y>
+      <width>61</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
     </property>
    </widget>
   </widget>
