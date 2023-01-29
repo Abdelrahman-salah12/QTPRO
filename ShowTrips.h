@@ -27,7 +27,7 @@ private slots:
 private:
 	Ui::ShowTripsClass ui;
 	void setVisibility(bool isVisible);
-	void updateLabels(int tripid);
+	void updateLabels();
 	void resetLabels();
 	void SelectQuery(int ID);
 };

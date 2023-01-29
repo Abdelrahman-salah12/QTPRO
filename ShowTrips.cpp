@@ -9,13 +9,14 @@
 #include <QTextStream>
 #include <qsqlrecord.h>
 #include <qmessagebox.h>
+#include "mydatabase.h"
+#include <qsqlerror.h>
 
 ShowTrips::ShowTrips(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
 	//to acces triplist [static vector of trips]
-	trip = new TripRegister;
 
 	
 }
@@ -33,19 +34,12 @@ ShowTrips::~ShowTrips()
 
 
 void ShowTrips::on_Show_clicked() {
-	//check if inputs are valid
-	SelectQuery(ui.inputID->value());
-	if (ui.inputID->value() > trip->triplist.size() || ui.inputID->value() <= 0)
-	{
-		return;
-	}
-	//hide the show button
-	ui.Show->setVisible(false);
-	//update the labels
-	updateLabels(ui.inputID->value() - 1);
+	resetLabels();
+	// Retrieve data
+	updateLabels();
 	//show the labels
 	setVisibility(true);
-	
+
 }
 
 void ShowTrips::on_Return_clicked() {
@@ -65,27 +59,23 @@ void ShowTrips::setVisibility(bool isVisible) {
 }
 
 
-void ShowTrips::updateLabels(int tripid) {
-	QString Qtrip = QString::number(trip->triplist[tripid].getTripID());
-	ui.labtripid->setText(ui.labtripid->text() + Qtrip);
+void ShowTrips::updateLabels() {
+	mydatabase db;
+	db.SelectTripByID(ui.inputID->value(), this);
 
-	QString Qbus = QString::number(trip->triplist[tripid].getbusID());
-	ui.labbusid->setText(ui.labbusid->text() + Qbus);
+	ui.labtripid->setText(ui.labtripid->text() + db.id);
 
-	QString Qdriver = QString::fromStdString(trip->triplist[tripid].getDriver());
-	ui.labdriver->setText(ui.labdriver->text() + Qdriver);
+	ui.labbusid->setText(ui.labbusid->text());
 
-	QString Qfrom = QString::fromStdString(trip->triplist[tripid].getFrom());
-	ui.labfrom->setText(ui.labfrom->text() + Qfrom);
+	ui.labdeparture->setText(ui.labdeparture->text() + db.departure);
 
-	QString Qto = QString::fromStdString(trip->triplist[tripid].getTo());
-	ui.labto->setText(ui.labto->text() + Qto);
+	ui.labarrival->setText(ui.labarrival->text() + db.arrival);
 
-	QString Qdeparture = QString::fromStdString(trip->triplist[tripid].getDepart());
-	ui.labdeparture->setText(ui.labdeparture->text() + Qdeparture);
+	ui.labfrom->setText(ui.labfrom->text() + db.from);
 
-	QString Qarrival = QString::fromStdString(trip->triplist[tripid].getArrival());
-	ui.labarrival->setText(ui.labarrival->text() + Qarrival);
+	ui.labto->setText(ui.labto->text() + db.to);
+
+	ui.labdriver->setText(ui.labdriver->text() + db.drivername);
 }
 
 
@@ -111,40 +101,40 @@ void ShowTrips::resetLabels() {
 
 
 void ShowTrips::SelectQuery(int ID) {
-	QString id, firstname, lastname, gender, date_of_birth;
-	QSqlDatabase database = QSqlDatabase::addDatabase("QPSQL");
-	database.setHostName("localhost");
-	database.setDatabaseName("mydb");
-	database.setPort(5432);
-	database.setUserName("postgres");
-	database.setPassword("password");
-	bool ok = database.open();
-	if (!ok) {
-		QMessageBox::information(this, "Not connected", "connection failed");
-	}
+	//QString id, firstname, lastname, gender, date_of_birth;
+	//QSqlDatabase database = QSqlDatabase::addDatabase("QPSQL");
+	//database.setHostName("localhost");
+	//database.setDatabaseName("mydb");
+	//database.setPort(5432);
+	//database.setUserName("postgres");
+	//database.setPassword("password");
+	//bool ok = database.open();
+	//if (!ok) {
+	//	QMessageBox::information(this, "Not connected", "connection failed");
+	//}
 
-	QSqlQuery query;
+	//QSqlQuery query;
+	//
+	//query.prepare("SELECT * FROM Person WHERE id = " + QString::number(ID));
+	////query.bindValue(0, ID);
+	//query.exec();
+	//QFile file("mytest.txt");
+	//file.open(QIODevice::ReadWrite);
+	//QTextStream stream(&file);
+	////int fieldNo = query.record().indexOf("first_name");
+	//while (query.next()) {
+
+	//	id = query.value(0).toString();
+	//	firstname = query.value(1).toString();
+	//	lastname = query.value(2).toString();
+	//	gender = query.value(3).toString();
+	//	date_of_birth = query.value(4).toString();
+	//	stream << id << "," << firstname << "," << lastname << "," << gender << "," << date_of_birth << Qt::endl;
+
+	//	//stream << firstname;
+	//}
+	//database.close();
 	
-	query.prepare("SELECT * FROM Person WHERE id = " + QString::number(ID));
-	//query.bindValue(0, ID);
-	query.exec();
-	QFile file("mytest.txt");
-	file.open(QIODevice::ReadWrite);
-	QTextStream stream(&file);
-	//int fieldNo = query.record().indexOf("first_name");
-	while (query.next()) {
-
-		id = query.value(0).toString();
-		firstname = query.value(1).toString();
-		lastname = query.value(2).toString();
-		gender = query.value(3).toString();
-		date_of_birth = query.value(4).toString();
-		stream << id << "," << firstname << "," << lastname << "," << gender << "," << date_of_birth << Qt::endl;
-
-		//stream << firstname;
-	}
-	database.close();
-
 }
 
 /*std::ofstream myfile;

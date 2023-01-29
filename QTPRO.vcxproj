@@ -87,6 +87,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bus.cpp" />
+    <ClCompile Include="msgbox.cpp" />
+    <ClCompile Include="mydatabase.cpp" />
     <ClCompile Include="ShowTrips.cpp" />
     <ClCompile Include="Trip.cpp" />
     <ClCompile Include="TripRegister.cpp" />
@@ -114,6 +116,8 @@
   <ItemGroup>
     <ClInclude Include="Bus.h" />
     <QtMoc Include="ShowTrips.h" />
+    <ClInclude Include="msgbox.h" />
+    <ClInclude Include="mydatabase.h" />
     <ClInclude Include="Trip.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

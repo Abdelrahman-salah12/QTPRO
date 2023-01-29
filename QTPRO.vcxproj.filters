@@ -55,6 +55,12 @@
     <ClCompile Include="ShowTrips.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="mydatabase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="msgbox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="BusRegister.ui">
@@ -83,6 +89,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Trip.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mydatabase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="msgbox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
