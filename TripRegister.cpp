@@ -5,7 +5,10 @@
 #include <string>
 #include <fstream>
 #include "Trip.h"
-
+#include "msgbox.h"
+#include "mydatabase.h"
+#include <qstring.h>
+#include <qfile.h>
 
 std::vector<Trip> TripRegister::triplist;
 
@@ -14,11 +17,15 @@ TripRegister::TripRegister(QWidget *parent)
 	: QMainWindow(parent), trip(nullptr)
 {
 	ui.setupUi(this);
+	ui.tripid->setReadOnly(true);
+	mydatabase db;
+	//MsgBox::showMessage("Trip!", "Trip windows has just opened", "black");
 }
 
 void TripRegister::showEvent(QShowEvent* event) {
 	trip = new Trip;
-	
+	int nextID = mydatabase::NextID();
+	ui.tripid->setValue(nextID);
 }
 
 
@@ -47,20 +54,26 @@ void TripRegister::on_Return_clicked() {
 
 
 void TripRegister::on_Submit_clicked() {
-	bool check = false;
-
-	//set the the attributes of the class to their final value as a string
+	//set the the members of the trip class to the value in the forum
 	setValues();
-	check = trip->checkInputs();
-	if (! (trip->checkInputs()) ) {
+	// if inputs invalid return
+	if (!trip->checkInputs()) {
+		MsgBox::showMessage("Input Error", "Please make sure to fill all the inputs first", "black");
 		return;
 	}
-	addToExcel();
+	
+	mydatabase db;
+	db.InsertTrip(trip->getTripID(), trip->getFrom(), trip->getTo(), trip->getDepart(),
+				  trip->getArrival(), trip->getDriver());
 	//add trip object
-	this->triplist.push_back(*trip);
-	//hide
-	this->close();
-	emit sgnShow();
+	//this->triplist.push_back(*trip);
+	//close
+	/*this->close();
+	emit sgnShow();*/
+	addToExcel();
+	clearFields();
+	int nextID = mydatabase::NextID();
+	ui.tripid->setValue(nextID);
 }
 
 void TripRegister::clearFields() {
@@ -74,15 +87,16 @@ void TripRegister::clearFields() {
 }
 
 void TripRegister::addToExcel() {
-	std::ofstream myfile;
-	myfile.open("Trip.csv", std::ios::app);
-	myfile << trip->getTripID() << ',';
-	myfile << trip->getbusID() << ',';
-	myfile << trip->getDriver() << ',';
-	myfile << trip->getFrom() << ',';
-	myfile << trip->getTo() << ',';
-	myfile << trip->getArrival() << ',';
-	myfile << trip->getDepart() << ',' << std::endl;
+	QFile myfile("Trips.csv");
+	myfile.open(QIODevice::ReadWrite);
+	QTextStream stream;
+	stream << trip->getTripID() << ',';
+	stream << trip->getbusID() << ',';
+	stream << trip->getDriver() << ',';
+	stream << trip->getFrom() << ',';
+	stream << trip->getTo() << ',';
+	stream << trip->getArrival() << ',';
+	stream << trip->getDepart() << ',' << Qt::endl;
 	myfile.flush();
 	myfile.close();
 }
@@ -93,16 +107,16 @@ void TripRegister::setValues() {
 
 	trip->setbusID(ui.busid->value());
 
-	trip->setDriver(ui.inputdriver->toPlainText().toStdString());
+	trip->setDriver(ui.inputdriver->toPlainText());
 
-	trip->setFrom(ui.inputfrom->toPlainText().toStdString());
+	trip->setFrom(ui.inputfrom->toPlainText());
 
-	trip->setTo(ui.inputto->toPlainText().toStdString());
+	trip->setTo(ui.inputto->toPlainText());
 
-	std::string arrival = ui.inputarrival->toPlainText().toStdString();
+	QString arrival = ui.inputarrival->toPlainText();
 	trip->setArrival(arrival);
 
-	std::string depart = ui.inputdeparture->toPlainText().toStdString();
+	QString depart = ui.inputdeparture->toPlainText();
 	trip->setDepart(depart);
 }
 

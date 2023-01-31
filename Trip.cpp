@@ -5,41 +5,41 @@ Trip::Trip() {
 	this->busID = 0;
 	this->tripID = 0;
 }
-void Trip::setTo(std::string to) {
+void Trip::setTo(QString to) {
 	this->to = to;
 }
-void Trip::setUser(std::string user) {
+void Trip::setUser(QString user) {
 	this->user = user;
 }
-void Trip::setFrom(std::string from) {
+void Trip::setFrom(QString from) {
 	this->from = from;
 }
-void Trip::setArrival(std::string arrival) {
+void Trip::setArrival(QString arrival) {
 	this->arrival = arrival;
 }
-void Trip::setDepart(std::string depart) {
+void Trip::setDepart(QString depart) {
 	this->depart = depart;
 }
-void Trip::setDriver(std::string driver) {
+void Trip::setDriver(QString driver) {
 	this->drivername = driver;
 }
 //getters
-std::string Trip::getTo() {
+QString Trip::getTo() {
 	return this->to;
 }
-std::string Trip::getFrom() {
+QString Trip::getFrom() {
 	return this->from;
 }
-std::string Trip::getArrival() {
+QString Trip::getArrival() {
 	return this->arrival;
 }
-std::string Trip::getDepart() {
+QString Trip::getDepart() {
 	return this->depart;
 }
-std::string Trip::getDriver() {
+QString Trip::getDriver() {
 	return this->drivername;
 }
-std::string Trip::getUser() {
+QString Trip::getUser() {
 	return this->user;
 }
 int Trip::getTripID() {
@@ -58,9 +58,7 @@ void Trip::settripID(int tripID) {
 };
 
 bool Trip::checkInputs() {
-	if (tripID == 0)
-		return false;
-	else if (busID == 0)
+	if (busID == 0)
 		return false;
 	else if (drivername == "")
 		return false;

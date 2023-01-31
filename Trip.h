@@ -1,34 +1,37 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <qstring.h>
+
+
 class Trip
 {
 public:
 	std::vector<int> seats;
 	Trip();
 	//Setters 
-	void setTo(std::string to);
-	void setUser(std::string user);
-	void setFrom(std::string from);
-	void setArrival(std::string arrival);
-	void setDepart(std::string depart);
-	void setDriver(std::string driver);
+	void setTo(QString to);
+	void setUser(QString user);
+	void setFrom(QString from);
+	void setArrival(QString arrival);
+	void setDepart(QString depart);
+	void setDriver(QString driver);
 	void setbusID(int busID);
 	void settripID(int tripID);
 	//Getters
-	std::string getTo();
-	std::string getUser();
-	std::string getFrom();
-	std::string getArrival();
-	std::string getDepart();
-	std::string getDriver();
+	QString getTo();
+	QString getUser();
+	QString getFrom();
+	QString getArrival();
+	QString getDepart();
+	QString getDriver();
 	int getTripID();
 	int getbusID();
 	bool checkInputs();
 	//Methods
 
 private:
-	std::string from, to, arrival, depart, drivername, user;
+	QString from, to, arrival, depart, drivername, user;
 	int busID, tripID;
 };
 
