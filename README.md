@@ -4,15 +4,12 @@
 Welcome to the Bus Reservation System! This desktop application is designed to provide a seamless and intuitive experience for booking bus tickets. Developed using Qt for its robust graphical user interface capabilities and C++ for its performance, this application offers a combination of speed and usability for both bus operators and passengers.
 
 ## Features
-- **User Authentication**: Secure login and registration systems for users.
 - **Search and Book Tickets**: Users can easily search for buses and book tickets according to their preferred date and time.
 - **Manage Reservations**: Users can view, modify, and cancel their bookings.
-- **Payment Integration**: Includes a secure and straightforward payment gateway for processing transactions.
 - **Admin Panel**: Admins can manage bus schedules, view booking statistics, and manage user accounts.
 - **Real-Time Updates**: Live updates on bus schedules and availability.
 
 ## Screenshots
-Below are various screenshots of the application in action:
 
 ![Login Screen](path/to/login_screen.png)
 *Login Screen*
