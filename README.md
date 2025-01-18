@@ -9,26 +9,6 @@ Welcome to the Bus Reservation System! This desktop application is designed to p
 - **Admin Panel**: Admins can manage bus schedules, view booking statistics, and manage user accounts.
 - **Real-Time Updates**: Live updates on bus schedules and availability.
 
-## Screenshots
-
-![Login Screen](voyage-picture/start.png)
-*Login Screen*
-
-![Search Interface](path/to/search_interface.png)
-*Search Interface*
-
-![Booking Screen](path/to/booking_screen.png)
-*Booking Screen*
-
-![User Dashboard](path/to/user_dashboard.png)
-*User Dashboard*
-
-![Payment Gateway](path/to/payment_gateway.png)
-*Payment Gateway*
-
-![Admin Panel](path/to/admin_panel.png)
-*Admin Panel*
-
 ## Getting Started
 ### Prerequisites
 - Qt 5.x installed on your system
